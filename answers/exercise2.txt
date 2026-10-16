@@ -1,0 +1,6 @@
+PS C:\Users\Admin\Programming\Github\Full-Stack-Open\Full-Stack-Open\Part 12\containers> docker container run -it ubuntu bash
+root@13cd9a07da45:/# mkdir /usr/src/app
+root@13cd9a07da45:/# touch /usr/src/app/index.js
+root@13cd9a07da45:/# exit
+exit
+PS C:\Users\Admin\Programming\Github\Full-Stack-Open\Full-Stack-Open\Part 12\containers> 
