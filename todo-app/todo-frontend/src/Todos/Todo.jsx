@@ -19,9 +19,9 @@ const Todo = ({
         margin: 'auto',
       }}
     >
-      <span>{todo.text}</span>
       {todo.done ? (
         <>
+          <span>{todo.text}</span>
           <span>This todo is done</span>
           <span>
             <button onClick={onClickDelete}>Delete</button>
