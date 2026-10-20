@@ -1,3 +1,4 @@
+
 services:
   app:
     image: hello-front-dev
@@ -6,8 +7,32 @@ services:
       dockerfile: dev.Dockerfile
     volumes:
       - ./todo-frontend:/usr/src/app
-    ports:
-      - "5173:5173"
+      - /usr/src/app/node_modules
+    depends_on:
+      - server
+
+  server:
+    image: todo-back-dev
+    build:
+      context: ./todo-backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./todo-backend:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/todo-app
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    image: mongo
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis
 
   nginx:
     image: nginx:1.29
@@ -17,11 +42,7 @@ services:
       - "8080:80"
     depends_on:
       - app
-    networks:
-      - default
-      - backend
+      - server
 
-networks:
-  backend:
-    external: true
-    name: todo-backend_default
+volumes:
+  mongo_data:
